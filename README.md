@@ -1,23 +1,5 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+<a href="https://codeclimate.com/github/AlexandrKoliukh/project-lvl2-s475/maintainability"><img src="https://api.codeclimate.com/v1/badges/f16b941d1ec06909440f/maintainability" /></a>
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+<a href="https://codeclimate.com/github/AlexandrKoliukh/project-lvl2-s475/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f16b941d1ec06909440f/test_coverage" /></a>
 
-# nodejs-package
-
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
-
-## Setup
-
-```sh
-$ make install
-```
-
-## Run tests
-
-```sh
-$ make test
-```
+[![Build Status](https://travis-ci.org/AlexandrKoliukh/project-lvl2-s475.svg?branch=master)](https://travis-ci.org/AlexandrKoliukh/project-lvl2-s475)
