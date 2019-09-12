@@ -12,3 +12,6 @@ lint:
 publish:
 	npm publish --dry-run
 
+start:
+	make build
+	node dist/bin/gendiff.js
