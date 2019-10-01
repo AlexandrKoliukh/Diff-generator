@@ -1,16 +1,10 @@
 import fs from 'fs';
 import gendiff from '../src';
 
-test('json', () => {
-  const testsFilesPath = `${__dirname}/__fixtures__/json`;
-  const resultData = fs.readFileSync(`${testsFilesPath}/result.txt`, 'utf8');
-  const result = gendiff(`${testsFilesPath}/before.json`, `${testsFilesPath}/after.json`);
-  expect(result).toBe(resultData);
-});
+const pathToFiles = `${__dirname}/__fixtures__`;
+const resultData = fs.readFileSync(`${pathToFiles}/result.txt`, 'utf8');
 
-test('yml', () => {
-  const testsFilesPath = `${__dirname}/__fixtures__/yml`;
-  const resultData = fs.readFileSync(`${testsFilesPath}/result.txt`, 'utf8');
-  const result = gendiff(`${testsFilesPath}/before.yml`, `${testsFilesPath}/after.yml`);
+test.each(['json', 'yml', 'ini'])('%s', (ext) => {
+  const result = gendiff(`${pathToFiles}/${ext}/before.${ext}`, `${pathToFiles}/${ext}/after.${ext}`);
   expect(result).toBe(resultData);
 });

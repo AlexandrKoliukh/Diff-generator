@@ -1,11 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import ini from 'ini';
 import parser from './parsers/parser';
 
 const parsers = {
   '.json': JSON.parse,
   '.yml': yaml.safeLoad,
+  '.ini': ini.parse,
 };
 
 const gendiff = (firstConfig, secondConfig) => {
