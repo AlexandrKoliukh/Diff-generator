@@ -16,10 +16,7 @@ const gendiff = (firstConfig, secondConfig) => {
     return [...acc, `+ ${key}: ${data2[key]}`];
   }, []);
 
-  const formattedResult = `{\n${result.map((i) => `\t${i}`).join(',\n')}\n}`;
-
-  console.log(formattedResult);
-  return formattedResult;
+  return `{\n${result.map((i) => `\t${i}`).join(',\n')}\n}`;
 };
 
 export default gendiff;

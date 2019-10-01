@@ -1,6 +1,6 @@
 {
   "name": "diff-calculator-kolalexo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Utility for finding differences in configuration files",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
