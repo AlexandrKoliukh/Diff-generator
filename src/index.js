@@ -3,6 +3,7 @@ import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
 import parser from './parsers/parser';
+import renderer from './render/renderer';
 
 const parsers = {
   '.json': JSON.parse,
@@ -15,9 +16,9 @@ const gendiff = (firstConfig, secondConfig) => {
   const data1 = format(fs.readFileSync(firstConfig, 'utf8'));
   const data2 = format(fs.readFileSync(secondConfig, 'utf8'));
 
-  const result = parser(data1, data2);
+ const a = parser(data1, data2);
+ const b = renderer(a);
 
-  return `{\n${result.map((i) => `\t${i}`).join(',\n')}\n}`;
 };
 
 export default gendiff;
