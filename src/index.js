@@ -16,9 +16,7 @@ const gendiff = (firstConfig, secondConfig) => {
   const data1 = format(fs.readFileSync(firstConfig, 'utf8'));
   const data2 = format(fs.readFileSync(secondConfig, 'utf8'));
 
- const a = parser(data1, data2);
- const b = renderer(a);
-
+  return renderer(parser(data1, data2));
 };
 
 export default gendiff;

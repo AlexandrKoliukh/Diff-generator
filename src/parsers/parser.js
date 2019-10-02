@@ -15,7 +15,7 @@ const parse = (data1, data2) => {
       if (typeof data1[key] === 'object' && typeof data2[key] === 'object') {
         return {
           ...acc,
-          [key]: getNode(null, null, null, parse(data1[key], data2[key])),
+          [key]: getNode(null, null, 'parent', parse(data1[key], data2[key])),
         };
       }
       if (data1[key] === data2[key]) {
