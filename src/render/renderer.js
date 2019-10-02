@@ -27,14 +27,13 @@ const rendersByState = {
     `${getSpaces(depth)}+${key}: ${isObject(diff[key].newValue)
       ? renderObject(diff[key].newValue, depth) : diff[key].newValue}`,
   ],
+
+  unchanged: (acc, depth, diff, key) => [...acc, ` ${getSpaces(depth)}${key}: ${diff[key].newValue}`],
 };
 
 const renderer = (tree) => {
   const iter = (diff, depth = 1) => getKeys(diff).reduce((acc, key) => {
     switch (diff[key].state) {
-      case 'unchanged': {
-        return [...acc, ` ${getSpaces(depth)}${key}: ${diff[key].newValue}`];
-      }
       case 'parent': {
         return [
           ...acc,
