@@ -22,8 +22,6 @@ const gendiff = (firstConfig, secondConfig, format = 'tree') => {
   const data1 = extParser(fs.readFileSync(firstConfig, 'utf8'));
   const data2 = extParser(fs.readFileSync(secondConfig, 'utf8'));
 
-  console.log(formats[format](parser(data1, data2)));
-
   return formats[format](parser(data1, data2));
 };
 
