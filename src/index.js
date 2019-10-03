@@ -3,7 +3,7 @@ import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
 import parser from './parsers/parser';
-import { treeView, plainView } from './formatters';
+import { treeView, plainView, jsonView } from './formatters';
 
 const parsers = {
   '.json': JSON.parse,
@@ -13,7 +13,8 @@ const parsers = {
 
 const formats = {
   plain: plainView,
-  json: treeView,
+  tree: treeView,
+  json: jsonView,
 };
 
 const gendiff = (firstConfig, secondConfig, format = 'json') => {
