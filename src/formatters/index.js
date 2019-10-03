@@ -1,7 +1,7 @@
 import plainView from './plain';
-import jsonView from './json';
+import treeView from './tree';
 
 export {
   plainView,
-  jsonView,
+  treeView,
 };

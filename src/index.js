@@ -3,7 +3,7 @@ import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
 import parser from './parsers/parser';
-import { jsonView, plainView } from './formatters';
+import { treeView, plainView } from './formatters';
 
 const parsers = {
   '.json': JSON.parse,
@@ -13,12 +13,10 @@ const parsers = {
 
 const formats = {
   plain: plainView,
-  json: jsonView,
+  json: treeView,
 };
 
 const gendiff = (firstConfig, secondConfig, format = 'json') => {
-  console.log(format);
-
   const extParser = parsers[path.extname(firstConfig)];
   const data1 = extParser(fs.readFileSync(firstConfig, 'utf8'));
   const data2 = extParser(fs.readFileSync(secondConfig, 'utf8'));
