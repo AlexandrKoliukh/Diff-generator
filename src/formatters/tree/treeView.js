@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-const getKeys = (obj1, obj2) => _.union(_.keys(obj1), _.keys(obj2));
-
 const getSpaces = (depth) => ' '.repeat(depth * 4 - 2);
 
 const renderObject = (object, depth) => _.keys(object).map((key) => {
@@ -14,33 +12,31 @@ const renderObject = (object, depth) => _.keys(object).map((key) => {
 
 const isObject = (temp) => typeof temp === 'object';
 
-const rendersByState = {
-  added: (acc, depth, diff, key) => [...acc, `${getSpaces(depth)}+${key}: ${isObject(diff[key].newValue)
-    ? renderObject(diff[key].newValue, depth) : diff[key].newValue}`],
-
-  deleted: (acc, depth, diff, key) => [...acc, `${getSpaces(depth)}-${key}: ${isObject(diff[key].oldValue)
-    ? renderObject(diff[key].oldValue, depth) : diff[key].oldValue}`],
-
-  changed: (acc, depth, diff, key) => [...acc,
-    `${getSpaces(depth)}-${key}: ${isObject(diff[key].oldValue)
-      ? renderObject(diff[key].oldValue, depth) : diff[key].oldValue}`,
-    `${getSpaces(depth)}+${key}: ${isObject(diff[key].newValue)
-      ? renderObject(diff[key].newValue, depth) : diff[key].newValue}`,
-  ],
-
-  unchanged: (acc, depth, diff, key) => [...acc, ` ${getSpaces(depth)}${key}: ${diff[key].newValue}`],
-};
-
 const treeView = (tree) => {
-  const iter = (diff, depth = 1) => getKeys(diff).reduce((acc, key) => {
-    switch (diff[key].state) {
+  const iter = (diff, depth = 1) => diff.map((item) => {
+    const {
+      name, oldValue, newValue, state, children,
+    } = item;
+
+    switch (state) {
       case 'parent': {
-        return [
-          ...acc,
-          `${getSpaces(depth)} ${key}: {`, iter(diff[key].children, depth + 1), `${getSpaces(depth)} }`,
-        ];
+        return [`${getSpaces(depth)} ${name}: {`, iter(children, depth + 1), `${getSpaces(depth)} }`];
       }
-      default: return rendersByState[diff[key].state](acc, depth, diff, key);
+      case 'added': {
+        return `${getSpaces(depth)}+${name}: ${isObject(newValue) ? renderObject(newValue, depth) : newValue}`;
+      }
+      case 'deleted': {
+        return `${getSpaces(depth)}-${name}: ${isObject(oldValue) ? renderObject(oldValue, depth) : oldValue}`;
+      }
+      case 'changed': {
+        return `${getSpaces(depth)}-${name}: ${isObject(oldValue) ? renderObject(oldValue, depth) : oldValue}
+      +${name}: ${isObject(newValue) ? renderObject(newValue, depth) : newValue}`;
+      }
+      case 'unchanged': {
+        return ` ${getSpaces(depth)}${name}: ${newValue}`;
+      }
+      default:
+        return new Error('invalid state');
     }
   }, []);
 
