@@ -3,7 +3,7 @@ import path from 'path';
 import yaml from 'js-yaml';
 import ini from 'ini';
 import parser from './parsers/parser';
-import renderer from './render/renderer';
+import { jsonView, plainView } from './formatters';
 
 const parsers = {
   '.json': JSON.parse,
@@ -11,12 +11,19 @@ const parsers = {
   '.ini': ini.parse,
 };
 
-const gendiff = (firstConfig, secondConfig) => {
-  const format = parsers[path.extname(firstConfig)];
-  const data1 = format(fs.readFileSync(firstConfig, 'utf8'));
-  const data2 = format(fs.readFileSync(secondConfig, 'utf8'));
+const formats = {
+  plain: plainView,
+  json: jsonView,
+};
 
-  return renderer(parser(data1, data2));
+const gendiff = (firstConfig, secondConfig, format = 'json') => {
+  console.log(format);
+
+  const extParser = parsers[path.extname(firstConfig)];
+  const data1 = extParser(fs.readFileSync(firstConfig, 'utf8'));
+  const data2 = extParser(fs.readFileSync(secondConfig, 'utf8'));
+
+  return formats[format](parser(data1, data2));
 };
 
 export default gendiff;

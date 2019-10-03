@@ -7,8 +7,8 @@ export default () => {
     .description('Compares two configuration files and shows a difference.')
     .arguments('<firstConfig> <secondConfig>')
     .option('-f, --format [type]', 'Output format')
-    .action((firstConfig, secondConfig) => {
-      const diff = gendiff(firstConfig, secondConfig);
+    .action((firstConfig, secondConfig, argv) => {
+      const diff = gendiff(firstConfig, secondConfig, argv.format);
       console.log(diff);
     })
     .parse(process.argv);

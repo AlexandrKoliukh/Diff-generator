@@ -31,7 +31,7 @@ const rendersByState = {
   unchanged: (acc, depth, diff, key) => [...acc, ` ${getSpaces(depth)}${key}: ${diff[key].newValue}`],
 };
 
-const renderer = (tree) => {
+const jsonView = (tree) => {
   const iter = (diff, depth = 1) => getKeys(diff).reduce((acc, key) => {
     switch (diff[key].state) {
       case 'parent': {
@@ -44,8 +44,7 @@ const renderer = (tree) => {
     }
   }, []);
 
-  console.log(`{\n${_.flattenDeep(iter(tree)).join('\n')}\n}`);
   return `{\n${_.flattenDeep(iter(tree)).join('\n')}\n}`;
 };
 
-export default renderer;
+export default jsonView;
