@@ -5,7 +5,9 @@
 [![Build Status](https://travis-ci.org/AlexandrKoliukh/project-lvl2-s475.svg?branch=master)](https://travis-ci.org/AlexandrKoliukh/project-lvl2-s475)
 
 <h2>Install</h2>
+
 [![asciicast](https://asciinema.org/a/2gotbVsxaDfFr6KujyXub85fN.svg)](https://asciinema.org/a/2gotbVsxaDfFr6KujyXub85fN)
 
 <h2>Usage</h2>
+
 [![asciicast](https://asciinema.org/a/Mz0Nywj1MaUPt7HmuQJO2dwmh.svg)](https://asciinema.org/a/Mz0Nywj1MaUPt7HmuQJO2dwmh)
