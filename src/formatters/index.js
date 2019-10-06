@@ -1,9 +1,11 @@
-import plainView from './plain';
-import treeView from './tree';
-import jsonView from './json';
+import plainView from './plainView';
+import treeView from './treeView';
+import jsonView from './jsonView';
 
-export {
-  plainView,
-  treeView,
-  jsonView,
+const formats = {
+  plain: plainView,
+  tree: treeView,
+  json: jsonView,
 };
+
+export default (format) => formats[format];

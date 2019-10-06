@@ -1,28 +1,21 @@
 import fs from 'fs';
 import path from 'path';
-import yaml from 'js-yaml';
-import ini from 'ini';
-import parser from './parsers/parser';
-import { treeView, plainView, jsonView } from './formatters';
-
-const parsers = {
-  '.json': JSON.parse,
-  '.yml': yaml.safeLoad,
-  '.ini': ini.parse,
-};
-
-const formats = {
-  plain: plainView,
-  tree: treeView,
-  json: jsonView,
-};
+import treeBuilder from './treeBuilder';
+import render from './formatters';
+import parser from './parser';
 
 const gendiff = (firstConfig, secondConfig, format = 'tree') => {
-  const extParser = parsers[path.extname(firstConfig)];
-  const data1 = extParser(fs.readFileSync(firstConfig, 'utf8'));
-  const data2 = extParser(fs.readFileSync(secondConfig, 'utf8'));
+  const data1 = fs.readFileSync(firstConfig, 'utf8');
+  const data2 = fs.readFileSync(secondConfig, 'utf8');
+  const ext1 = path.extname(firstConfig);
+  const ext2 = path.extname(secondConfig);
 
-  return formats[format](parser(data1, data2));
+  const parsedData1 = parser(ext1, data1);
+  const parsedData2 = parser(ext2, data2);
+
+  const ast = treeBuilder(parsedData1, parsedData2);
+
+  return render(format)(ast);
 };
 
 export default gendiff;
