@@ -1,40 +1,24 @@
 import fs from 'fs';
+import { capitalize } from 'lodash';
 import gendiff from '../src';
 
-const pathToFiles = `${__dirname}/__fixtures__`;
+const pathToFixtures = `${__dirname}/__fixtures__`;
 
-describe('Tree like format ', () => {
-  const resultData = fs.readFileSync(`${pathToFiles}/resultTree.txt`, 'utf8');
-  test.each(['json', 'yml', 'ini'])('%s', (ext) => {
-    const result = gendiff(
-      `${pathToFiles}/${ext}/before.${ext}`,
-      `${pathToFiles}/${ext}/after.${ext}`,
-      'tree',
-    );
-    expect(result).toBe(resultData);
-  });
+const getPathsToFiles = (ext, format) => ({
+  resultPath: `${pathToFixtures}/result${capitalize(format)}.txt`,
+  afterPath: `${pathToFixtures}/${ext}/after.${ext}`,
+  beforePath: `${pathToFixtures}/${ext}/before.${ext}`,
 });
 
-describe('Plain like format ', () => {
-  const resultData = fs.readFileSync(`${pathToFiles}/resultPlain.txt`, 'utf8');
-  test.each(['json', 'yml', 'ini'])('%s', (ext) => {
-    const result = gendiff(
-      `${pathToFiles}/${ext}/before.${ext}`,
-      `${pathToFiles}/${ext}/after.${ext}`,
-      'plain',
-    );
-    expect(result).toBe(resultData);
-  });
-});
+test.each(
+  [
+    ['tree', 'yml'], ['tree', 'ini'], ['tree', 'json'],
+    ['json', 'yml'], ['json', 'ini'], ['json', 'json'],
+    ['plain', 'yml'], ['plain', 'ini'], ['plain', 'json'],
+  ],
+)('Format %s, ext %s', (format, ext) => {
+  const { afterPath, beforePath, resultPath } = getPathsToFiles(ext, format);
+  const resultData = fs.readFileSync(resultPath, 'utf8');
 
-describe('Json like format ', () => {
-  const resultData = fs.readFileSync(`${pathToFiles}/resultJson.txt`, 'utf8');
-  test.each(['json', 'yml', 'ini'])('%s', (ext) => {
-    const result = gendiff(
-      `${pathToFiles}/${ext}/before.${ext}`,
-      `${pathToFiles}/${ext}/after.${ext}`,
-      'json',
-    );
-    expect(result).toBe(resultData);
-  });
+  expect(gendiff(beforePath, afterPath, format)).toBe(resultData);
 });
