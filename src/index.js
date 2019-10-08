@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import treeBuilder from './treeBuilder';
-import render from './formatters';
-import parser from './parser';
+import formatBuilder from './formatters';
+import parse from './parser';
 
 const gendiff = (firstConfig, secondConfig, format = 'tree') => {
   const data1 = fs.readFileSync(firstConfig, 'utf8');
@@ -10,12 +10,12 @@ const gendiff = (firstConfig, secondConfig, format = 'tree') => {
   const ext1 = path.extname(firstConfig);
   const ext2 = path.extname(secondConfig);
 
-  const parsedData1 = parser(ext1, data1);
-  const parsedData2 = parser(ext2, data2);
+  const parsedData1 = parse(ext1, data1);
+  const parsedData2 = parse(ext2, data2);
 
   const ast = treeBuilder(parsedData1, parsedData2);
 
-  return render(format)(ast);
+  return formatBuilder(format)(ast);
 };
 
 export default gendiff;

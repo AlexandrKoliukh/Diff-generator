@@ -36,13 +36,12 @@ const treeView = (tree) => {
         return getMinus(depth, name, oldValue);
       }
       case 'changed': {
-        return `${getMinus(depth, name, oldValue)}\n${getPlus(depth, name, newValue)}`;
+        return [`${getMinus(depth, name, oldValue)}`, `${getPlus(depth, name, newValue)}`];
       }
       case 'unchanged': {
         return ` ${getSpaces(depth)}${name}: ${newValue}`;
       }
-      default:
-        return new Error('invalid state');
+      default: return new Error(`Invalid state: ${state}`);
     }
   }, []);
   return `{\n${_.flattenDeep(iter(tree)).join('\n')}\n}`;

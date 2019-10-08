@@ -1,5 +1,5 @@
 import commander from 'commander';
-import gendiff from './index';
+import gendiff from '.';
 
 export default () => {
   commander

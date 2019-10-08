@@ -1,4 +1,4 @@
-import { isNaN, flattenDeep } from 'lodash';
+import { isNaN, flattenDeep, identity } from 'lodash';
 
 const types = {
   object: () => '[complex value]',
@@ -26,7 +26,7 @@ const plainView = (data) => {
       case 'changed': {
         return `${startString} updated. From ${getTypeValue(oldValue)} to ${getTypeValue(newValue)}`;
       }
-      default: return new Error('Invalid state');
+      default: return new Error(`Invalid state: ${state}`);
     }
   }, []);
 
@@ -34,5 +34,5 @@ const plainView = (data) => {
 };
 
 export default (data) => flattenDeep(plainView(data))
-  .filter((i) => i)
+  .filter(identity)
   .join('\n');
