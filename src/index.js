@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import treeBuilder from './treeBuilder';
-import formatBuilder from './formatters';
+import getDiffView from './formatters';
 import parse from './parser';
 
 const gendiff = (firstConfig, secondConfig, format = 'tree') => {
@@ -15,7 +15,7 @@ const gendiff = (firstConfig, secondConfig, format = 'tree') => {
 
   const ast = treeBuilder(parsedData1, parsedData2);
 
-  return formatBuilder(format)(ast);
+  return getDiffView(format)(ast);
 };
 
 export default gendiff;

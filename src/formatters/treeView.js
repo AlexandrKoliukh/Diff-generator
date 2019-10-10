@@ -41,7 +41,7 @@ const treeView = (tree) => {
       case 'unchanged': {
         return ` ${getSpaces(depth)}${name}: ${newValue}`;
       }
-      default: return new Error(`Invalid state: ${state}`);
+      default: throw new Error(`Invalid state: ${state}`);
     }
   }, []);
   return `{\n${_.flattenDeep(iter(tree)).join('\n')}\n}`;

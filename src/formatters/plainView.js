@@ -26,7 +26,7 @@ const plainView = (data) => {
       case 'changed': {
         return `${startString} updated. From ${getTypeValue(oldValue)} to ${getTypeValue(newValue)}`;
       }
-      default: return new Error(`Invalid state: ${state}`);
+      default: throw new Error(`Invalid state: ${state}`);
     }
   }, []);
 
